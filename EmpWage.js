@@ -1,9 +1,11 @@
-//UC-4
+//UC-5
+//calculating monthly wage of employee
 //constant variables
 const IS_FULL_TIME = 1;
 const IS_PART_TIME = 2;
 const WAGE_PER_HOURS = 20;
-const NUM_OF_WORKING_DAYS = 20;
+const NUM_OF_WORKING_DAYS = 28;
+const MAX_HRS_PER_MONTHS = 100;
 
 //This function for return working hours
 function getWorkingHours(empCheck)
@@ -20,15 +22,23 @@ function getWorkingHours(empCheck)
 }
 
 let empHrs = 0;
+let totalEmpHrs = 0;
+let totalWorkingDays = 0;
 
-for (let day=0; day<NUM_OF_WORKING_DAYS; day++)
+while (totalEmpHrs <= MAX_HRS_PER_MONTHS && totalWorkingDays < NUM_OF_WORKING_DAYS )
 {
+    totalWorkingDays++;
     //gives random value
     let empCheck = Math.floor(Math.random() * 10) % 3;
     //calling function
-    empHrs += getWorkingHours(empCheck);
+    totalEmpHrs += getWorkingHours(empCheck);
+    totalEmpHrs += empHrs;
+    if(totalEmpHrs > 100)
+    {
+        totalEmpHrs -= empHrs;
+    }
 }
 
 //calculating employee wage
-let empWage = empHrs * WAGE_PER_HOURS;
-console.log("Total Hours: " +empHrs+"\nEmployee Monthly Wage: " + empWage);
+let empWage = totalEmpHrs * WAGE_PER_HOURS;
+console.log("Total Hours: " +totalEmpHrs+"\nTotal Working Days: "+NUM_OF_WORKING_DAYS+"\nEmployee Monthly Wage: " + empWage);
