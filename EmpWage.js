@@ -1,44 +1,58 @@
-//UC-5
-//calculating monthly wage of employee
-//constant variables
-const IS_FULL_TIME = 1;
-const IS_PART_TIME = 2;
-const WAGE_PER_HOURS = 20;
-const NUM_OF_WORKING_DAYS = 28;
-const MAX_HRS_PER_MONTHS = 100;
+//UC-6//calculating monthly wage of employee
+const IS_PRESENT=1;
+const FULL_TIME = 1; //constant variables
+const PART_TIME = 2;
+const EMP_RATE_PER_HR = 20;
+const NUM_OF_WORKING_DAYS = 20;
+let empHrs = 0;
+let empWageArray=new Array();
 
 //This function for return working hours
-function getWorkingHours(empCheck)
+function getWorkingHrs(empAtt)
 {
-    switch(empCheck)
+    switch(empAtt)
     {
-        case IS_FULL_TIME:
-            return 8;
-        case IS_PART_TIME:
-            return 4;
+        case FULL_TIME:
+            empHrs=8
+            return empHrs;
+        case PART_TIME:
+            empHrs=4
+            return empHrs;
         default:
-            return 0;
+            empHrs=0
+            return empHrs;
     }
 }
 
-let empHrs = 0;
-let totalEmpHrs = 0;
-let totalWorkingDays = 0;
+for(var i=0; i<NUM_OF_WORKING_DAYS; i++)
+{  
+    let empAtt= Math.floor(Math.random() * 10) % 3;
+    empHrs+=getWorkingHrs(empAtt);  
+} 
+empWage=EMP_RATE_PER_HR*empHrs;
+console.log("UC4 forloop results:Total employee wage is " +empWage); 
 
-while (totalEmpHrs <= MAX_HRS_PER_MONTHS && totalWorkingDays < NUM_OF_WORKING_DAYS )
+const MAX_WORKING_HRS=100;
+let totalEmpHrs=0;
+let totalWorkingDays=1;
+let totalEmpWage=0;
+
+function getEmployeeWage(hrs)
+{
+    return hrs*EMP_RATE_PER_HR;
+}
+while (totalEmpHrs<=MAX_WORKING_HRS && totalWorkingDays<=NUM_OF_WORKING_DAYS)
 {
     totalWorkingDays++;
     //gives random value
-    let empCheck = Math.floor(Math.random() * 10) % 3;
+    let empAtt = Math.floor(Math.random() * 10) % 3;
     //calling function
-    totalEmpHrs += getWorkingHours(empCheck);
-    totalEmpHrs += empHrs;
-    if(totalEmpHrs > 100)
-    {
-        totalEmpHrs -= empHrs;
-    }
+    empHrs= getWorkingHrs(empAtt);
+    totalEmpHrs+=totalEmpHrs+empHrs;
+    totalWorkingDays++;
+    empWageArray.push(getEmployeeWage(empHrs));  
 }
-
-//calculating employee wage
-let empWage = totalEmpHrs * WAGE_PER_HOURS;
-console.log("Total Hours: " +totalEmpHrs+"\nTotal Working Days: "+NUM_OF_WORKING_DAYS+"\nEmployee Monthly Wage: " + empWage);
+totalEmpWage=getEmployeeWage(totalEmpHrs);
+console.log("UC5 whileloop Result: Total Working Days: "+ NUM_OF_WORKING_DAYS +" Total working hours: "+ totalEmpHrs +" Total Employee Wage: " + empWage);
+console.log("UC6 usingArray: " +totalEmpWage);
+console.log("Daily Wage Array: " +empWageArray.join(" "));
