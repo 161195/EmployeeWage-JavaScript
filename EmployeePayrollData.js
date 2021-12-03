@@ -16,8 +16,18 @@ class EmployeePayrollData
         this.startDate = params[4];
     }
     //getter and setter method
-    get name() {return this._name;}
-    set name(name) {this._name = name;}
+    get name() 
+    {
+        return this._name;
+    }
+    set name(name) 
+    {
+        let namePattern = new RegExp('^[A-Z]{1}[a-z]{1}$');
+        if (namePattern.test(name))
+        this._name = name;
+        else
+        throw new "Please enter valid name";
+    }
     
     //method
     toString()
@@ -25,7 +35,7 @@ class EmployeePayrollData
         return "id=" +this.id + ", name=" +this.name +", salary=" +this.salary;
     }
 }
-let EmployeePayroll = new EmployeePayrollData(1, "Mayuri",33333333);
+let EmployeePayroll = new EmployeePayrollData(1, "Ms",33333333);
 console.log(EmployeePayroll.toString());
-let newEmployeePayroll = new EmployeePayrollData(3,"MS",3333333,"S",new Date());
+let newEmployeePayroll = new EmployeePayrollData(3,"As",3333333,"F",new Date());
 console.log(newEmployeePayroll);
